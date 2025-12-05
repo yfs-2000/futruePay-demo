@@ -1,12 +1,27 @@
+import tsParser from '@typescript-eslint/parser';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginAstro from 'eslint-plugin-astro';
+
 export default [
-  // add more generic rule sets here, such as:
-  // js.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
   {
+    ignores: ['dist', 'node_modules', '.astro', '.env.d.ts', '.env'],
+  },
+  ...eslintPluginAstro.configs.recommended,
+  eslintConfigPrettier,
+  {
+    files: ['**/*.astro'],
     rules: {
       // override/add rules settings here, such as:
       // "astro/no-set-html-directive": "error"
-    }
-  }
+    },
+  },
+  {
+    files: ['**/*.js', '**/*.mjs', '**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+    },
+    rules: {
+      // override/add rules settings here
+    },
+  },
 ];

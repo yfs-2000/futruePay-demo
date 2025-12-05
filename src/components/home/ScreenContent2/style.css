@@ -1,0 +1,10 @@
+.swiper-wrapper {
+  align-items: center;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 660px;
+  height: 370px;
+}

@@ -1,15 +1,17 @@
 ---
-import { Button } from "@/components/ui/button";
-import Test from "../components/Test";
-import Layout from "../layouts/Layout.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import ScreenContent2 from '@/components/home/ScreenContent2';
+import ScreenContent3 from '@/components/home/ScreenContent3';
+import ScreenContent4 from '@/components/home/ScreenContent4';
+import ScreenContent5 from '@/components/home/ScreenContent5';
+import ScreenContent6 from '@/components/home/ScreenContent6';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
-  <div class="text-3xl font-bold underline">Hello World</div>
-  <div class="h-[2000px]">123123</div>
-  <Test client:load />
-  <Button>Click me</Button>
+<Layout title="首页">
+  <ScreenContent2 client:load />
+  <ScreenContent3 client:load />
+  <ScreenContent4 client:load />
+  <ScreenContent5 client:load />
+  <ScreenContent6 client:load />
+  <div class="h-screen"></div>
 </Layout>
