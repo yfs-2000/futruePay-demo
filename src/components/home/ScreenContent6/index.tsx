@@ -1,4 +1,4 @@
-import IdentificationPng from '@/assets/images/identification.png';
+import IdentificationPng from '@/assets/images/identification1.png';
 import picturePng from '@/assets/images/picture2.png';
 import bgPng from '@/assets/images/picture6.png';
 import GradientText from '@/components/effect/GradientText';
