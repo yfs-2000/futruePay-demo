@@ -24,6 +24,7 @@ export interface LogoLoopProps {
   direction?: 'left' | 'right' | 'up' | 'down';
   width?: number | string;
   logoHeight?: number;
+  logoWidth?: number;
   gap?: number;
   pauseOnHover?: boolean;
   hoverSpeed?: number;
@@ -201,6 +202,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     direction = 'left',
     width = '100%',
     logoHeight = 28,
+    logoWidth = 100,
     gap = 32,
     pauseOnHover,
     hoverSpeed,
@@ -272,10 +274,10 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     useResizeObserver(
       updateDimensions,
       [containerRef, seqRef],
-      [logos, gap, logoHeight, isVertical],
+      [logos, gap, logoHeight, logoWidth, isVertical],
     );
 
-    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
+    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, logoWidth, isVertical]);
 
     useAnimationLoop(
       trackRef,
@@ -292,9 +294,10 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         ({
           '--logoloop-gap': `${gap}px`,
           '--logoloop-logoHeight': `${logoHeight}px`,
+          '--logoloop-logoWidth': `${logoWidth}px`,
           ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor }),
         }) as React.CSSProperties,
-      [gap, logoHeight, fadeOutColor],
+      [gap, logoHeight, logoWidth, fadeOutColor],
     );
 
     const rootClasses = useMemo(
@@ -304,6 +307,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           isVertical ? 'overflow-hidden h-full inline-block' : 'overflow-x-hidden',
           '[--logoloop-gap:32px]',
           '[--logoloop-logoHeight:28px]',
+          '[--logoloop-logoWidth:100px]',
           '[--logoloop-fadeColorAuto:#ffffff]',
           'dark:[--logoloop-fadeColorAuto:#0b0b0b]',
           scaleOnHover && 'py-[calc(var(--logoloop-logoHeight)*0.1)]',
@@ -354,7 +358,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         ) : (
           <img
             className={cx(
-              'block h-[var(--logoloop-logoHeight)] w-auto object-contain',
+              'block h-[var(--logoloop-logoHeight)] w-[var(--logoloop-logoWidth)] object-contain',
               'pointer-events-none [-webkit-user-drag:none]',
               '[image-rendering:-webkit-optimize-contrast]',
               'motion-reduce:transition-none',

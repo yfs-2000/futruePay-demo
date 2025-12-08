@@ -33,8 +33,8 @@ const ScreenContent3 = () => {
         >
           <GradientText className="text-[40px] font-bold">深度整合的行业解决方案</GradientText>
         </motion.div>
-        <div className="mt-14 flex items-center justify-between gap-20 overflow-hidden rounded-[32px] bg-gradient-to-b from-[#071E3B] to-[#030E1C] py-2 pl-20">
-          <div className="grid grid-cols-2 gap-10">
+        <div className="mt-14 items-center justify-between gap-20 overflow-hidden rounded-[32px] bg-gradient-to-b from-[#071E3B] to-[#030E1C] py-2 pl-20 md:flex">
+          <div className="grid gap-10 md:grid-cols-2">
             {list.map((item, index) => {
               const fromLeft = index % 2 === 0;
               const group = Math.floor(index / 2);

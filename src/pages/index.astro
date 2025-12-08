@@ -1,4 +1,5 @@
 ---
+import ScreenContent1 from '@/components/home/ScreenContent1';
 import ScreenContent2 from '@/components/home/ScreenContent2';
 import ScreenContent3 from '@/components/home/ScreenContent3';
 import ScreenContent4 from '@/components/home/ScreenContent4';
@@ -8,10 +9,10 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="首页">
+  <ScreenContent1 client:load />
   <ScreenContent2 client:load />
   <ScreenContent3 client:load />
   <ScreenContent4 client:load />
   <ScreenContent5 client:load />
   <ScreenContent6 client:load />
-  <div class="h-screen"></div>
 </Layout>
