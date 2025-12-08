@@ -39,7 +39,7 @@ export interface LogoLoopProps {
 const ANIMATION_CONFIG = {
   SMOOTH_TAU: 0.25,
   MIN_COPIES: 2,
-  COPY_HEADROOM: 2
+  COPY_HEADROOM: 2,
 } as const;
 
 const toCssLength = (value?: number | string): string | undefined =>
@@ -50,7 +50,7 @@ const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(
 const useResizeObserver = (
   callback: () => void,
   elements: Array<React.RefObject<Element | null>>,
-  dependencies: React.DependencyList
+  dependencies: React.DependencyList,
 ) => {
   useEffect(() => {
     if (!window.ResizeObserver) {
@@ -60,7 +60,7 @@ const useResizeObserver = (
       return () => window.removeEventListener('resize', handleResize);
     }
 
-    const observers = elements.map(ref => {
+    const observers = elements.map((ref) => {
       if (!ref.current) return null;
       const observer = new ResizeObserver(callback);
       observer.observe(ref.current);
@@ -70,7 +70,7 @@ const useResizeObserver = (
     callback();
 
     return () => {
-      observers.forEach(observer => observer?.disconnect());
+      observers.forEach((observer) => observer?.disconnect());
     };
   }, dependencies);
 };
@@ -78,7 +78,7 @@ const useResizeObserver = (
 const useImageLoader = (
   seqRef: React.RefObject<HTMLUListElement | null>,
   onLoad: () => void,
-  dependencies: React.DependencyList
+  dependencies: React.DependencyList,
 ) => {
   useEffect(() => {
     const images = seqRef.current?.querySelectorAll('img') ?? [];
@@ -96,7 +96,7 @@ const useImageLoader = (
       }
     };
 
-    images.forEach(img => {
+    images.forEach((img) => {
       const htmlImg = img as HTMLImageElement;
       if (htmlImg.complete) {
         handleImageLoad();
@@ -107,7 +107,7 @@ const useImageLoader = (
     });
 
     return () => {
-      images.forEach(img => {
+      images.forEach((img) => {
         img.removeEventListener('load', handleImageLoad);
         img.removeEventListener('error', handleImageLoad);
       });
@@ -122,7 +122,7 @@ const useAnimationLoop = (
   seqHeight: number,
   isHovered: boolean,
   hoverSpeed: number | undefined,
-  isVertical: boolean
+  isVertical: boolean,
 ) => {
   const rafRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
@@ -210,7 +210,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     renderItem,
     ariaLabel = 'Partner logos',
     className,
-    style
+    style,
   }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
@@ -257,30 +257,44 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         if (sequenceHeight > 0) {
           setSeqHeight(Math.ceil(sequenceHeight));
           const viewport = containerRef.current?.clientHeight ?? parentHeight ?? sequenceHeight;
-          const copiesNeeded = Math.ceil(viewport / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM;
+          const copiesNeeded =
+            Math.ceil(viewport / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM;
           setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
         }
       } else if (sequenceWidth > 0) {
         setSeqWidth(Math.ceil(sequenceWidth));
-        const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM;
+        const copiesNeeded =
+          Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM;
         setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
       }
     }, [isVertical]);
 
-    useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight, isVertical]);
+    useResizeObserver(
+      updateDimensions,
+      [containerRef, seqRef],
+      [logos, gap, logoHeight, isVertical],
+    );
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+    useAnimationLoop(
+      trackRef,
+      targetVelocity,
+      seqWidth,
+      seqHeight,
+      isHovered,
+      effectiveHoverSpeed,
+      isVertical,
+    );
 
     const cssVariables = useMemo(
       () =>
         ({
           '--logoloop-gap': `${gap}px`,
           '--logoloop-logoHeight': `${logoHeight}px`,
-          ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor })
+          ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor }),
         }) as React.CSSProperties,
-      [gap, logoHeight, fadeOutColor]
+      [gap, logoHeight, fadeOutColor],
     );
 
     const rootClasses = useMemo(
@@ -293,9 +307,9 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           '[--logoloop-fadeColorAuto:#ffffff]',
           'dark:[--logoloop-fadeColorAuto:#0b0b0b]',
           scaleOnHover && 'py-[calc(var(--logoloop-logoHeight)*0.1)]',
-          className
+          className,
         ),
-      [isVertical, scaleOnHover, className]
+      [isVertical, scaleOnHover, className],
     );
 
     const handleMouseEnter = useCallback(() => {
@@ -313,7 +327,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               className={cx(
                 'flex-none text-[length:var(--logoloop-logoHeight)] leading-[1]',
                 isVertical ? 'mb-[var(--logoloop-gap)]' : 'mr-[var(--logoloop-gap)]',
-                scaleOnHover && 'overflow-visible group/item'
+                scaleOnHover && 'group/item overflow-visible',
               )}
               key={key}
               role="listitem"
@@ -331,7 +345,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               'inline-flex items-center',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+                'ease-[cubic-bezier(0.4,0,0.2,1)] transition-transform duration-300 group-hover/item:scale-110',
             )}
             aria-hidden={!!(item as any).href && !(item as any).ariaLabel}
           >
@@ -340,12 +354,12 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         ) : (
           <img
             className={cx(
-              'h-[var(--logoloop-logoHeight)] w-auto block object-contain',
-              '[-webkit-user-drag:none] pointer-events-none',
+              'block h-[var(--logoloop-logoHeight)] w-auto object-contain',
+              'pointer-events-none [-webkit-user-drag:none]',
               '[image-rendering:-webkit-optimize-contrast]',
               'motion-reduce:transition-none',
               scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+                'ease-[cubic-bezier(0.4,0,0.2,1)] transition-transform duration-300 group-hover/item:scale-110',
             )}
             src={(item as any).src}
             srcSet={(item as any).srcSet}
@@ -367,10 +381,10 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         const inner = (item as any).href ? (
           <a
             className={cx(
-              'inline-flex items-center no-underline rounded',
+              'inline-flex items-center rounded no-underline',
               'transition-opacity duration-200 ease-linear',
               'hover:opacity-80',
-              'focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2'
+              'focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-current',
             )}
             href={(item as any).href}
             aria-label={itemAriaLabel || 'logo link'}
@@ -388,7 +402,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             className={cx(
               'flex-none text-[length:var(--logoloop-logoHeight)] leading-[1]',
               isVertical ? 'mb-[var(--logoloop-gap)]' : 'mr-[var(--logoloop-gap)]',
-              scaleOnHover && 'overflow-visible group/item'
+              scaleOnHover && 'group/item overflow-visible',
             )}
             key={key}
             role="listitem"
@@ -397,7 +411,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           </li>
         );
       },
-      [isVertical, scaleOnHover, renderItem]
+      [isVertical, scaleOnHover, renderItem],
     );
 
     const logoLists = useMemo(
@@ -413,7 +427,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             {logos.map((item, itemIndex) => renderLogoItem(item, `${copyIndex}-${itemIndex}`))}
           </ul>
         )),
-      [copyCount, logos, renderLogoItem, isVertical]
+      [copyCount, logos, renderLogoItem, isVertical],
     );
 
     const containerStyle = useMemo(
@@ -424,13 +438,19 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             : toCssLength(width)
           : (toCssLength(width) ?? '100%'),
         ...cssVariables,
-        ...style
+        ...style,
       }),
-      [width, cssVariables, style, isVertical]
+      [width, cssVariables, style, isVertical],
     );
 
     return (
-      <div ref={containerRef} className={rootClasses} style={containerStyle} role="region" aria-label={ariaLabel}>
+      <div
+        ref={containerRef}
+        className={rootClasses}
+        style={containerStyle}
+        role="region"
+        aria-label={ariaLabel}
+      >
         {fadeOut && (
           <>
             {isVertical ? (
@@ -440,7 +460,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
                   className={cx(
                     'pointer-events-none absolute inset-x-0 top-0 z-10',
                     'h-[clamp(24px,8%,120px)]',
-                    'bg-[linear-gradient(to_bottom,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                    'bg-[linear-gradient(to_bottom,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]',
                   )}
                 />
                 <div
@@ -448,7 +468,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
                   className={cx(
                     'pointer-events-none absolute inset-x-0 bottom-0 z-10',
                     'h-[clamp(24px,8%,120px)]',
-                    'bg-[linear-gradient(to_top,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                    'bg-[linear-gradient(to_top,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]',
                   )}
                 />
               </>
@@ -459,7 +479,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
                   className={cx(
                     'pointer-events-none absolute inset-y-0 left-0 z-10',
                     'w-[clamp(24px,8%,120px)]',
-                    'bg-[linear-gradient(to_right,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                    'bg-[linear-gradient(to_right,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]',
                   )}
                 />
                 <div
@@ -467,7 +487,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
                   className={cx(
                     'pointer-events-none absolute inset-y-0 right-0 z-10',
                     'w-[clamp(24px,8%,120px)]',
-                    'bg-[linear-gradient(to_left,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                    'bg-[linear-gradient(to_left,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]',
                   )}
                 />
               </>
@@ -477,9 +497,9 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
         <div
           className={cx(
-            'flex will-change-transform select-none relative z-0',
+            'relative z-0 flex select-none will-change-transform',
             'motion-reduce:transform-none',
-            isVertical ? 'flex-col h-max w-full' : 'flex-row w-max'
+            isVertical ? 'h-max w-full flex-col' : 'w-max flex-row',
           )}
           ref={trackRef}
           onMouseEnter={handleMouseEnter}
@@ -489,7 +509,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         </div>
       </div>
     );
-  }
+  },
 );
 
 LogoLoop.displayName = 'LogoLoop';

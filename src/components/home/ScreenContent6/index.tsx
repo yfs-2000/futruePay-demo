@@ -6,6 +6,13 @@ import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { useRef } from 'react';
 
+const techLogos = [
+  { src: picturePng.src },
+  { src: picturePng.src },
+  { src: picturePng.src },
+  { src: picturePng.src },
+];
+
 const ScreenContent6 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,33 +36,52 @@ const ScreenContent6 = () => {
 
   return (
     <div className="pt-44">
-      <motion.div ref={containerRef} style={{ scale, y, filter, willChange: 'transform, filter' }}>
-        <div className="text-center">
-          <img {...IdentificationPng} alt="identification" className="inline-block w-[120px]" />
-          <GradientText className="my-6 text-[40px] font-bold">现在,即刻加入我们</GradientText>
+      <motion.div ref={containerRef} style={{ scale, y, filter }}>
+        <div className="mb-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+          >
+            <img {...IdentificationPng} alt="identification" className="inline-block w-[120px]" />
+            <GradientText className="my-6 text-[40px] font-bold">现在,即刻加入我们</GradientText>
+          </motion.div>
           <div className="flex items-center justify-center gap-4">
-            <input
-              defaultValue="Example@.com"
-              className="h-14 w-[300px] rounded-full border px-6 py-5"
-            />
-            <div className="flex size-14 cursor-pointer items-center justify-center rounded-full bg-blue-600 p-2 hover:bg-blue-700">
-              <ArrowRight className="text-white" />
-            </div>
+            <motion.div
+              initial={{ opacity: 0, x: -120 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+            >
+              <input
+                defaultValue="Example@.com"
+                className="h-14 w-[300px] rounded-full border px-6 py-5"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 120 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+            >
+              <div className="flex size-14 cursor-pointer items-center justify-center rounded-full bg-blue-600 p-2 hover:bg-blue-700">
+                <ArrowRight className="text-white" />
+              </div>
+            </motion.div>
           </div>
         </div>
         <LogoLoop
-          className="mt-[100px]"
-          logos={Array.from({ length: 10 })}
-          speed={80}
-          logoHeight={48}
+          logos={techLogos}
+          speed={120}
+          direction="left"
+          logoHeight={334}
           gap={40}
-          hoverSpeed={20}
+          hoverSpeed={0}
+          scaleOnHover={true}
           fadeOut
-          renderItem={() => (
-            <div className="size-[344px]">
-              <img {...picturePng} className="size-full object-contain" />
-            </div>
-          )}
+          fadeOutColor="#ffffff"
+          ariaLabel="Technology partners"
         />
       </motion.div>
     </div>

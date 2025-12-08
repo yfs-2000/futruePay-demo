@@ -10,7 +10,7 @@ const MaxW = ({
   style?: React.CSSProperties;
 }) => {
   return (
-    <div className={cn('max-w-[1440px] mx-auto', className)} style={style}>
+    <div className={cn('mx-auto max-w-[1440px]', className)} style={style}>
       {children}
     </div>
   );

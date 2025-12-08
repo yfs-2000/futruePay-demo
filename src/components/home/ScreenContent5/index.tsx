@@ -39,7 +39,7 @@ const ScreenContent5 = () => {
 
     return (
       <motion.div
-        className="text-red text-[72px] font-bold text-blue-500"
+        className="text-red text-[72px] font-bold text-[#005DF5]"
         style={{ scale, opacity, filter }}
       >
         Connect with FuturePay <br /> builders
@@ -60,22 +60,30 @@ const ScreenContent5 = () => {
             <br />
             network, and share ideas
           </div>
-          <div className="mt-28 grid grid-cols-3 gap-2">
+          <div className="mt-28 grid grid-cols-3 gap-6">
             {list.map((item, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="relative min-h-[250px] overflow-hidden rounded-[32px] border border-[#181D28] p-8 text-left text-white"
+                className="group relative min-h-[250px] overflow-hidden rounded-[32px] border border-[#181D28] p-8 text-left text-white shadow-[0_20px_80px_-40px_rgba(0,0,0,0.6)] transition-colors"
+                whileHover={{ scale: 1.03, y: -8 }}
+                transition={{ type: 'spring', stiffness: 240, damping: 18 }}
               >
-                <img {...picturePng} className="absolute left-0 top-0 size-full object-cover" />
+                <img
+                  {...picturePng}
+                  className="absolute left-0 top-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
                 <div className="relative z-10 flex h-full flex-col justify-between">
                   <div>
-                    <span className="inline-flex items-center rounded-full bg-[hsla(0,0%,0%,0.5)] px-4 py-2 text-base">
+                    <span className="inline-flex items-center rounded-full bg-[hsla(0,0%,0%,0.55)] px-4 py-2 text-base transition-colors group-hover:bg-black/70">
                       {item.date}
                     </span>
                   </div>
-                  <div className="text-lg">{item.title}</div>
+                  <div className="text-lg transition-transform duration-300 group-hover:translate-y-[-2px]">
+                    {item.title}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>

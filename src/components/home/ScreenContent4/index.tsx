@@ -1,6 +1,7 @@
 import resourcePng from '@/assets/images/resource.png';
 import MaxW from '@/components/common/MaxW';
 import MagicBento, { type BentoCardProps } from '@/components/effect/MagicBento';
+import SplitText from '@/components/effect/SplitText';
 import { cn } from '@/lib/utils';
 
 const ScreenContent4 = () => {
@@ -26,8 +27,20 @@ const ScreenContent4 = () => {
   return (
     <div className="bg-[#0F34EE] py-20 text-center text-background">
       <MaxW>
-        <div className="mb-4 text-xl">资源</div>
-        <div className="mb-14 text-[40px] font-bold">在这里,找到解决之道</div>
+        <div className="mb-4 justify-center text-xl">资源</div>
+        <SplitText
+          delay={100}
+          duration={0.6}
+          ease="power3.out"
+          splitType="chars"
+          from={{ opacity: 0, y: 40 }}
+          to={{ opacity: 1, y: 0 }}
+          threshold={0.1}
+          rootMargin="-100px"
+          textAlign="center"
+          className="mb-14 text-[40px] font-bold"
+          text="在这里,找到解决之道"
+        />
         <div className="mx-auto max-w-[1000px]">
           <MagicBento
             glowColor="100, 137, 207"
