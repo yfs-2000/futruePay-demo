@@ -1,4 +1,6 @@
-import picturePng from '@/assets/images/picture1.jpg';
+import picture1Png from '@/assets/images/picture1.png';
+import picture4Png from '@/assets/images/picture4.png';
+
 import MaxW from '@/components/common/MaxW';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { useRef } from 'react';
@@ -6,17 +8,26 @@ import { useRef } from 'react';
 const CARD_COUNT = 4;
 const IMAGE_PROGRESS_RANGE = 0.2; // 每张图占 0.2 的滚动进度
 
+const list = [
+  {
+    date: '18,Nov,2025',
+    title: 'FuturePay community events provide oppo...',
+    image: picture1Png,
+  },
+  {
+    date: '18,Nov,2025',
+    title: 'FuturePay community events provide oppo...',
+    image: picture1Png,
+  },
+  {
+    date: '18,Nov,2025',
+    title: 'FuturePay community events provide oppo...',
+    image: picture4Png,
+  },
+];
+
 const ScreenContent5 = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const list = [
-    {
-      date: '18,Nov,2025',
-      title: 'FuturePay community events provide oppo...',
-      image: 'https://image.tmdb.org/t/p/w500/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg',
-    },
-    { date: '18,Nov,2025', title: 'FuturePay community events provide oppo...' },
-    { date: '18,Nov,2025', title: 'FuturePay community events provide oppo...' },
-  ];
 
   // 监听容器的滚动进度
   const { scrollYProgress } = useScroll({
@@ -36,11 +47,12 @@ const ScreenContent5 = () => {
     const scale = useTransform(smoothProgress, [0.2, 0.5], [3, 1]);
     const opacity = useTransform(smoothProgress, [0.2, 0.5], [0, 1]);
     const filter = useTransform(smoothProgress, [0.2, 0.5], ['blur(10px)', 'blur(0px)']);
+    const color = useTransform(smoothProgress, [0.2, 0.5], ['#005DF5', '#FFFFFF']);
 
     return (
       <motion.div
-        className="text-red text-[72px] font-bold text-[#005DF5]"
-        style={{ scale, opacity, filter }}
+        className="text-red text-[72px] font-bold"
+        style={{ scale, opacity, filter, color }}
       >
         Connect with FuturePay <br /> builders
       </motion.div>
@@ -69,10 +81,9 @@ const ScreenContent5 = () => {
                 transition={{ type: 'spring', stiffness: 240, damping: 18 }}
               >
                 <img
-                  {...picturePng}
+                  {...item.image}
                   className="absolute left-0 top-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95" />
                 <div className="relative z-10 flex h-full flex-col justify-between">
                   <div>
                     <span className="inline-flex items-center rounded-full bg-[hsla(0,0%,0%,0.55)] px-4 py-2 text-base transition-colors group-hover:bg-black/70">
@@ -101,7 +112,7 @@ const ScreenContent5 = () => {
 
     return (
       <motion.div className="absolute left-0 top-0 h-full w-full" style={{ scale, y }}>
-        <img {...picturePng} alt="picture" className="size-full object-cover" />
+        <img {...picture1Png} alt="picture" className="size-full object-cover" />
       </motion.div>
     );
   };
