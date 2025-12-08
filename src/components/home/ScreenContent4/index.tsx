@@ -43,7 +43,7 @@ const ScreenContent4 = () => {
         />
         <div className="mx-auto max-w-[1000px]">
           <MagicBento
-            glowColor="100, 137, 207"
+            glowColor="80, 200, 255" // 更亮的霓虹青，搭配蓝底更显眼
             spotlightRadius={50}
             wrapperClassName="grid grid-cols-2 gap-2"
             cardData={list}
