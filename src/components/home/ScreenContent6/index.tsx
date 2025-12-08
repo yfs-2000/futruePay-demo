@@ -1,4 +1,7 @@
 import picturePng from '@/assets/images/picture2.png';
+import picture7Png from '@/assets/images/picture7.png';
+import picture8Png from '@/assets/images/picture8.png';
+
 import bgPng from '@/assets/images/picture6.png';
 import GradientText from '@/components/effect/GradientText';
 import LogoLoop, { type LogoItem } from '@/components/effect/LogoLoop';
@@ -9,9 +12,9 @@ import { useRef } from 'react';
 
 const list: LogoItem[] = [
   { src: picturePng.src },
+  { src: picture7Png.src },
   { src: picturePng.src },
-  { src: picturePng.src },
-  { src: picturePng.src },
+  { src: picture8Png.src },
 ];
 
 const currencyGroups = [
