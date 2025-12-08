@@ -41,7 +41,7 @@ export default function Header() {
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <a

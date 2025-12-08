@@ -46,7 +46,7 @@ export default function Footer() {
 
   return (
     <footer className="p-2">
-      <div className="relative z-10 overflow-hidden rounded-[32px] bg-[#e8f2ff] px-10 py-20 text-[#14233d]">
+      <div className="relative z-10 overflow-hidden rounded-[32px] bg-[#e8f2ff] px-10 py-32 text-[#14233d]">
         <MaxW>
           <motion.div
             variants={container}
@@ -99,7 +99,7 @@ export default function Footer() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-10 flex flex-col gap-6 border-t border-[#c7d4eb] pt-6 text-sm text-[#4a5668] md:flex-row md:items-center md:justify-between"
+            className="mt-10 flex flex-col gap-6 border-t border-[#c7d4eb] pt-10 text-sm text-[#4a5668] md:flex-row md:items-center md:justify-between"
           >
             <div className="flex items-center gap-2 text-[#0c1a33]">
               <img {...logoDarkPng} alt="logo" className="w-[156px]" />

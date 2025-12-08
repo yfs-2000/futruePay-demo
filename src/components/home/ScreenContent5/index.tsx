@@ -72,7 +72,7 @@ const ScreenContent5 = () => {
             <br />
             network, and share ideas
           </div>
-          <div className="mt-28 grid grid-cols-3 gap-6">
+          <div className="mt-20 grid grid-cols-3 gap-6">
             {list.map((item, index) => (
               <motion.div
                 key={index}
